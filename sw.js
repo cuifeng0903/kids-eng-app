@@ -1,14 +1,14 @@
-// Simple service worker (offline cache)
+// Simple service worker for GitHub Pages (relative paths and tolerant caching)
 const CACHE = 'kids-en-v1';
 const ASSETS = [
-  '/', '/index.html', '/styles.css', '/app.js', '/manifest.webmanifest',
-  '/icon-192.png', '/icon-512.png' // 任意（無くてもOK）
+  './', './index.html', './styles.css', './app.js',
+  './manifest.webmanifest', './icon-192.png', './icon-512.png'
 ];
 
 self.addEventListener('install', (event) => {
   event.waitUntil((async () => {
     const cache = await caches.open(CACHE);
-    await Promise.all(ASSETS.map(u => cache.add(u).catch(()=>{})));
+    await Promise.all(ASSETS.map(u => cache.add(u).catch(()=>{}))); // 404は無視して継続
   })());
 });
 
@@ -20,4 +20,3 @@ self.addEventListener('activate', (event) => {
 
 self.addEventListener('fetch', (event) => {
   event.respondWith(caches.match(event.request).then(res => res || fetch(event.request)));
-});
