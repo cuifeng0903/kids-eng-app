@@ -7,10 +7,8 @@ const STATE = {
   stamps: 0,
 };
 
+// 20文型 × 各3シーン（絵文字・英文・日本語訳・ヒント・アクション）
 const DATA = [
-  // --- ここに20文型 × 各3パターンのシーンデータ（絵文字・英文・日本語訳・ヒント・アクション） ---
-  // 例：Can I…? / Thank you for… / Don’t be… / Let’s not… / I’m going to… / ...
-  // 実ファイルではすでに全60シーン分を収録済みです（ダウンロード版・下記コードとも同一）
   {"key":"Can I…?","jp":"〜してもいい？","scenes":[
     {"emoji":"🎂","sentence":"Can I eat this cake?","jp":"このケーキ食べてもいい？","hint":"Tap the cake!","action":"jump"},
     {"emoji":"🎠","sentence":"Can I play on the swing?","jp":"ブランコで遊んでもいい？","hint":"Tap the swing!","action":"spin"},
@@ -21,9 +19,96 @@ const DATA = [
     {"emoji":"🧱","sentence":"Thank you for helping me!","jp":"手伝ってくれてありがとう！","hint":"Tap blocks.","action":"spin"},
     {"emoji":"🖼️","sentence":"Thank you for the picture!","jp":"絵をありがとう！","hint":"Tap the picture.","action":"jump"}
   ]},
-  // ...（中略：Don’t be… / Let’s not… / I’m going to… / Where can I…? / I’d like to… / Did I…? / How was…? / Let me… /
-  // I need to… / Is there…? / Are you ready…? / What kind of…? / When can I…? / How can I…? / I’m sorry for… /
-  // I don’t know… / It makes me… / I will not… 各3シーン）...
+  {"key":"Don’t be…","jp":"〜にならないで","scenes":[
+    {"emoji":"😭","sentence":"Don't be sad!","jp":"悲しまないで！","hint":"Tap smile.","action":"jump"},
+    {"emoji":"😠","sentence":"Don't be angry!","jp":"怒らないで！","hint":"Drag heart.","action":"spin"},
+    {"emoji":"😨","sentence":"Don't be afraid!","jp":"こわがらないで！","hint":"Tap the light.","action":"jump"}
+  ]},
+  {"key":"Let’s not…","jp":"〜しないでおこう","scenes":[
+    {"emoji":"🌧️","sentence":"Let's not go outside!","jp":"外に出るのはやめておこう！","hint":"Tap umbrella.","action":"spin"},
+    {"emoji":"📺","sentence":"Let's not watch TV now!","jp":"今はテレビを見ないでおこう！","hint":"Swipe to turn off.","action":"jump"},
+    {"emoji":"🍬","sentence":"Let's not eat candy!","jp":"キャンディは食べないでおこう！","hint":"Swipe candy.","action":"spin"}
+  ]},
+  {"key":"I’m going to…","jp":"〜するつもりです","scenes":[
+    {"emoji":"🎒","sentence":"I'm going to school!","jp":"学校へ行くつもりです！","hint":"Tap backpack.","action":"jump"},
+    {"emoji":"⚽","sentence":"I'm going to play in the park!","jp":"公園で遊ぶつもりです！","hint":"Tap the ball.","action":"spin"},
+    {"emoji":"🖍️","sentence":"I'm going to draw a picture!","jp":"絵を描くつもりです！","hint":"Tap the crayon.","action":"jump"}
+  ]},
+  {"key":"Where can I…?","jp":"どこで〜できますか？","scenes":[
+    {"emoji":"📚","sentence":"Where can I find a book?","jp":"本はどこで見つけられる？","hint":"Tap bookshelf.","action":"spin"},
+    {"emoji":"🚻","sentence":"Where can I wash my hands?","jp":"どこで手を洗える？","hint":"Tap sink.","action":"jump"},
+    {"emoji":"🎨","sentence":"Where can I paint?","jp":"どこで絵が描ける？","hint":"Tap table.","action":"jump"}
+  ]},
+  {"key":"I’d like to…","jp":"〜したいです","scenes":[
+    {"emoji":"🍨","sentence":"I'd like to eat ice cream!","jp":"アイスを食べたいです！","hint":"Tap ice cream.","action":"jump"},
+    {"emoji":"📖","sentence":"I'd like to read a book!","jp":"本を読みたいです！","hint":"Tap book.","action":"spin"},
+    {"emoji":"🏰","sentence":"I'd like to build blocks!","jp":"ブロックを組みたいです！","hint":"Tap blocks.","action":"jump"}
+  ]},
+  {"key":"Did I…?","jp":"〜した？","scenes":[
+    {"emoji":"🖍️","sentence":"Did I draw this?","jp":"これ描いたのかな？","hint":"Tap the drawing.","action":"spin"},
+    {"emoji":"🧩","sentence":"Did I finish the puzzle?","jp":"パズルを終えた？","hint":"Tap puzzle.","action":"jump"},
+    {"emoji":"🧹","sentence":"Did I clean up?","jp":"片付けた？","hint":"Tap broom.","action":"jump"}
+  ]},
+  {"key":"How was…?","jp":"〜はどうだった？","scenes":[
+    {"emoji":"🎡","sentence":"How was the park?","jp":"公園はどうだった？","hint":"Tap ferris wheel.","action":"spin"},
+    {"emoji":"🎉","sentence":"How was the party?","jp":"パーティはどうだった？","hint":"Tap balloons.","action":"jump"},
+    {"emoji":"🍽️","sentence":"How was dinner?","jp":"夕食はどうだった？","hint":"Tap plate.","action":"jump"}
+  ]},
+  {"key":"Let me…","jp":"〜させて","scenes":[
+    {"emoji":"🚪","sentence":"Let me open the door!","jp":"ドアを開けさせて！","hint":"Swipe door.","action":"spin"},
+    {"emoji":"🎁","sentence":"Let me help you!","jp":"手伝わせて！","hint":"Tap gift.","action":"jump"},
+    {"emoji":"🧁","sentence":"Let me make a cupcake!","jp":"カップケーキ作らせて！","hint":"Tap cupcake.","action":"jump"}
+  ]},
+  {"key":"I need to…","jp":"〜する必要がある","scenes":[
+    {"emoji":"🪥","sentence":"I need to brush my teeth!","jp":"歯をみがく必要がある！","hint":"Tap toothbrush.","action":"jump"},
+    {"emoji":"🧴","sentence":"I need to wash my hands!","jp":"手を洗う必要がある！","hint":"Tap soap.","action":"spin"},
+    {"emoji":"🛏️","sentence":"I need to go to bed!","jp":"寝る必要がある！","hint":"Tap bed.","action":"jump"}
+  ]},
+  {"key":"Is there…?","jp":"〜はありますか？","scenes":[
+    {"emoji":"📦","sentence":"Is there a toy inside?","jp":"中におもちゃはある？","hint":"Tap box.","action":"spin"},
+    {"emoji":"🐱","sentence":"Is there a cat here?","jp":"ここに猫はいる？","hint":"Tap cat.","action":"jump"},
+    {"emoji":"🍎","sentence":"Is there an apple?","jp":"りんごはある？","hint":"Tap apple.","action":"jump"}
+  ]},
+  {"key":"Are you ready…?","jp":"準備できた？","scenes":[
+    {"emoji":"🏁","sentence":"Are you ready to run?","jp":"走る準備できた？","hint":"Tap flag.","action":"jump"},
+    {"emoji":"🎤","sentence":"Are you ready to sing?","jp":"歌う準備できた？","hint":"Tap mic.","action":"spin"},
+    {"emoji":"🎲","sentence":"Are you ready to play?","jp":"遊ぶ準備できた？","hint":"Tap dice.","action":"jump"}
+  ]},
+  {"key":"What kind of…?","jp":"どんな〜？","scenes":[
+    {"emoji":"🐯","sentence":"What kind of animal is this?","jp":"これはどんな動物？","hint":"Tap animal.","action":"jump"},
+    {"emoji":"🍕","sentence":"What kind of food is this?","jp":"これはどんな食べ物？","hint":"Tap food.","action":"spin"},
+    {"emoji":"🚗","sentence":"What kind of car is that?","jp":"それはどんな車？","hint":"Tap car.","action":"jump"}
+  ]},
+  {"key":"When can I…?","jp":"いつ〜できる？","scenes":[
+    {"emoji":"🕰️","sentence":"When can I play?","jp":"いつ遊べる？","hint":"Tap clock.","action":"spin"},
+    {"emoji":"🍰","sentence":"When can I eat cake?","jp":"いつケーキ食べられる？","hint":"Tap cake.","action":"jump"},
+    {"emoji":"🖍️","sentence":"When can I draw?","jp":"いつ絵を描ける？","hint":"Tap crayon.","action":"jump"}
+  ]},
+  {"key":"How can I…?","jp":"どうやって〜する？","scenes":[
+    {"emoji":"📐","sentence":"How can I make a star?","jp":"どうやって星を作る？","hint":"Tap ruler.","action":"spin"},
+    {"emoji":"🧦","sentence":"How can I fold this?","jp":"どうやってこれをたたむ？","hint":"Tap cloth.","action":"jump"},
+    {"emoji":"🧩","sentence":"How can I finish the puzzle?","jp":"どうやってパズルを終える？","hint":"Tap puzzle.","action":"jump"}
+  ]},
+  {"key":"I’m sorry for…","jp":"〜してごめんね","scenes":[
+    {"emoji":"🌸","sentence":"I'm sorry for breaking the flower.","jp":"花を折ってごめんね。","hint":"Tap flower.","action":"spin"},
+    {"emoji":"🧸","sentence":"I'm sorry for dropping the toy.","jp":"おもちゃ落としてごめんね。","hint":"Tap toy.","action":"jump"},
+    {"emoji":"🧁","sentence":"I'm sorry for eating your cupcake.","jp":"あなたのカップケーキ食べてごめんね。","hint":"Tap cupcake.","action":"jump"}
+  ]},
+  {"key":"I don’t know…","jp":"わからない…","scenes":[
+    {"emoji":"❓","sentence":"I don't know the answer.","jp":"答えがわからない。","hint":"Tap hint.","action":"jump"},
+    {"emoji":"🗺️","sentence":"I don't know the way.","jp":"道がわからない。","hint":"Tap map.","action":"spin"},
+    {"emoji":"📦","sentence":"I don't know what's inside.","jp":"中身がわからない。","hint":"Tap box.","action":"jump"}
+  ]},
+  {"key":"It makes me…","jp":"それは私を〜にする","scenes":[
+    {"emoji":"😊","sentence":"It makes me happy!","jp":"それは私を幸せにする！","hint":"Tap smile.","action":"jump"},
+    {"emoji":"😲","sentence":"It makes me surprised!","jp":"それは私を驚かせる！","hint":"Tap surprise.","action":"spin"},
+    {"emoji":"😴","sentence":"It makes me sleepy.","jp":"それは眠くなる。","hint":"Tap sleep.","action":"jump"}
+  ]},
+  {"key":"I will not…","jp":"〜しません","scenes":[
+    {"emoji":"🍬","sentence":"I will not eat candy.","jp":"キャンディは食べません。","hint":"Swipe away.","action":"spin"},
+    {"emoji":"📺","sentence":"I will not watch TV now.","jp":"今はテレビを見ません。","hint":"Tap TV.","action":"jump"},
+    {"emoji":"😡","sentence":"I will not be angry.","jp":"怒りません。","hint":"Tap calm.","action":"jump"}
+  ]}
 ];
 
 const screen   = document.getElementById('screen');
@@ -240,12 +325,11 @@ function renderCurrent() {
   else renderHome();
 }
 
-// Service Worker
+// Service Worker登録（相対パスで同階層）
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', ()=>{
-    navigator.serviceWorker.register('/sw.js');
+    navigator.serviceWorker.register('./sw.js');
   });
 }
 
 // Init
-renderHome();
