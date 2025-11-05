@@ -4,8 +4,9 @@
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>Kids English Patterns</title>
-  <link rel="manifest" href="./manifest.webmanifest"/>
-heme-color" content="#4C9EEB"/>
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="stylesheet" href="./styles.css">
+  <meta name="theme-color" content="#4C9EEB"/>
 </head>
 <body>
   <div id="app">
@@ -27,5 +28,13 @@ heme-color" content="#4C9EEB"/>
   </div>
 
   ./app.js</script>
+  <script>
+    // Service Worker を相対パスで登録（同階層）
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js');
+      });
+    }
+  </script>
 </body>
 </html>
