@@ -7,7 +7,7 @@ const STATE = {
   stamps: 0,
 };
 
-// 20文型 × 各3シーン（絵文字・英文・日本語訳・ヒント・アクション）
+// 20文型 × 各3シーン
 const DATA = [
   {"key":"Can I…?","jp":"〜してもいい？","scenes":[
     {"emoji":"🎂","sentence":"Can I eat this cake?","jp":"このケーキ食べてもいい？","hint":"Tap the cake!","action":"jump"},
@@ -212,7 +212,6 @@ function renderLesson() {
       <div class="status">声まねは評価しません（楽しんでね）</div>
     </div>
   `;
-  // tap to animate + speak
   const actor = document.getElementById('actor');
   actor.addEventListener('click', ()=>{
     actor.classList.add(s.action);
@@ -333,3 +332,4 @@ if ('serviceWorker' in navigator) {
 }
 
 // Init
+renderHome();
